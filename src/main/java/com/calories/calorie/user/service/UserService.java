@@ -1,5 +1,6 @@
 package com.calories.calorie.user.service;
 
+import com.calories.calorie.admin.dto.JoinRequestDto;
 import com.calories.calorie.user.dto.UserResponseDto;
 
 import java.util.List;
@@ -7,4 +8,7 @@ import java.util.List;
 public interface UserService {
     //유저 전체 조회
     List<UserResponseDto> getUsers();
+
+    //회원가입
+    void joinProcess(JoinRequestDto joinRequestDto);
 }
