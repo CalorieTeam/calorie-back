@@ -17,6 +17,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; //고유 아이디
 
+    @Column(unique = true)
     private String email; //이메일
 
     private String pw; //비밀번호
