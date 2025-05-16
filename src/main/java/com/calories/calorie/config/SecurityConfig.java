@@ -50,7 +50,7 @@ public class SecurityConfig {
                 .csrf((auth) -> auth.disable()) // CSRF 비활성화 (JWT 기반 인증에 필요 없음)
                 //인가설정
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/","/login","/auth/reissue","/swagger-ui/**","/v3/api-docs/**").permitAll() // 해당 URL은 인증 없이 누구나 접근 가능
+                        .requestMatchers("/","/login","/auth/reissue","/swagger-ui/**","/v3/api-docs/**","/auth/logout").permitAll() // 해당 URL은 인증 없이 누구나 접근 가능
                         .anyRequest().authenticated() // 위에서 명시되지 않은 모든 요청은 인증된 사용자만 접근 가능
                 )
                 .addFilter(customFilter) // 커스텀 로그인 필터 등록

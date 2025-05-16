@@ -1,6 +1,8 @@
 package com.calories.calorie.auth.controller;
 
 import com.calories.calorie.auth.jwt.JwtUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag(name = "Auth API2", description = "토큰 재발급 API")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class TokenReissueController {
     private final JwtUtil jwtUtil;
     private final StringRedisTemplate redisTemplate;
 
+    @Operation(summary = "엑세스토큰 재발급", description = "RefreshToken을 헤더에 포함하여 재발급 요청")
     @PostMapping("/reissue")
     public ResponseEntity<?> reissue(@RequestHeader("Authorization") String authHeader) {
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
