@@ -20,9 +20,17 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    // JWT 유틸 클래스: 토큰 생성, 검증, 파싱 담당
     private final JwtUtil jwtUtil;
+    //사용자 정보 로드 서비스 : email을 기반으로 UserDetails 조회
     private final CustomUserDetailsService customUserDetailsService;
 
+
+    /**
+     * 모든 요청마다 한 번 실행됨 (OncePerRequestFilter)
+     * - AccessToken이 Authorization 헤더에 존재하는 경우
+     * - 해당 토큰을 검증하고 인증 정보를 SecurityContextHolder에 저장
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,

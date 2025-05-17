@@ -51,14 +51,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, String> loginData = objectMapper.readValue(request.getInputStream(), Map.class);
 
-            String email = loginData.get("email");
-            String pw = loginData.get("pw");
+            //요청들어온 값
+            String email = loginData.get("email"); //요청들어온 이메일
+            String pw = loginData.get("pw");       //요청들어온 비밀번호
 
             // 인증용 토큰 객체 생성 → 실제 검증은 UserDetailsService에서 수행
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, pw);
 
             // AuthenticationManager에게 인증 요청
-            return authenticationManager.authenticate(authToken);
+            return authenticationManager.authenticate(authToken); // 요청시 CustomUserDetailsService
 
         } catch (IOException e) {
             throw new RuntimeException(e);

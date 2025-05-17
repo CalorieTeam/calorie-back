@@ -1,6 +1,6 @@
 package com.calories.calorie.auth.controller;
 
-import com.calories.calorie.auth.dto.SignupRequestDto;
+import com.calories.calorie.auth.dto.JoinRequestDto;
 import com.calories.calorie.auth.jwt.JwtUtil;
 import com.calories.calorie.auth.userdetails.CustomUserDetails;
 import com.calories.calorie.user.entity.User;
@@ -29,7 +29,7 @@ public class AuthController {
 
     @Operation(summary = "회원가입", description = "이메일, 비밀번호, 이름, 성별 등으로 신규 회원가입을 처리합니다.")
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody SignupRequestDto request) {
+    public ResponseEntity<?> signup(@RequestBody JoinRequestDto request) {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("이미 가입된 이메일입니다.");
         }

@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -16,7 +17,10 @@ import java.util.UUID;
 public class JwtUtil {
 
     //시크릿 키: JWT 서명에 사용될 비밀키 (32자 이상, HMAC-SHA256 암호화에서 최소 길이 요구됨)
-    private String secret = "my-jwt-secret-key-my-jwt-secret-key"; // 최소 256비트 (32자 이상)
+    @Value("${jwt.secret}")
+    private String secret ; // 최소 256비트 (32자 이상)
+
+
     private Key key;
 
     //토큰 유효시간 설정

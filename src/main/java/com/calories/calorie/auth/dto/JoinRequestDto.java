@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(description = "회원가입 요청 DTO")
-public class SignupRequestDto {
+public class JoinRequestDto {
     @Schema(description = "사용자 이메일", example = "test@example.com")
     private String email;
     @Schema(description = "비밀번호", example = "1234")

@@ -22,8 +22,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // 권한/역할이 필요하다면 여기에 ROLE_XXX 형태로 추가 가능
-        return Collections.emptyList(); // 현재는 역할 없음
+        return Collections.singletonList(() -> user.getRole());
     }
 
     @Override
