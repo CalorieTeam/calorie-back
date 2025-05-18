@@ -24,7 +24,9 @@ public class JwtUtil {
     private Key key;
 
     //토큰 유효시간 설정
-    private final long accessTokenValidity = 1000L * 60 * 15; // 15분
+    //엑세스토큰 유효시간
+    private final long accessTokenValidity = 1000L * 60 * 1; // 15분
+    //리프레시 토큰 유효시간
     private final long refreshTokenValidity = 1000L * 60 * 60 * 24 * 7; // 7일
 
     //의존성 주입 완료 후 자동 호출됨
@@ -92,5 +94,21 @@ public class JwtUtil {
                 .getBody();
 
         return claims.getSubject(); // subject(email)를 꺼냄
+    }
+    public enum TokenValidationResult {
+        VALID,
+        EXPIRED,
+        INVALID
+    }
+
+    public TokenValidationResult validateTokenDetail(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return TokenValidationResult.VALID;
+        } catch (io.jsonwebtoken.ExpiredJwtException e) {
+            return TokenValidationResult.EXPIRED;
+        } catch (JwtException | IllegalArgumentException e) {
+            return TokenValidationResult.INVALID;
+        }
     }
 }

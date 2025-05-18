@@ -43,6 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7); // "Bearer " 이후 토큰 추출
 
+            //유효성검사
+            JwtUtil.TokenValidationResult result = jwtUtil.validateTokenDetail(token);
+
             // 2.유효한 토큰인지 검사
             if (jwtUtil.validateToken(token)) {
                 String email = jwtUtil.getEmailFromToken(token); // subject == email
@@ -60,6 +63,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json");
+
+                if (result == JwtUtil.TokenValidationResult.EXPIRED) {
+                    response.getWriter().write("{\"message\": \"AccessTokenExpired\"}");
+                } else {
+                    response.getWriter().write("{\"message\": \"InvalidAccessToken\"}");
+                }
+                return;
             }
         }
 
