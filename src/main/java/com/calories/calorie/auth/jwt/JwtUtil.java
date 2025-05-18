@@ -25,7 +25,7 @@ public class JwtUtil {
 
     //토큰 유효시간 설정
     //엑세스토큰 유효시간
-    private final long accessTokenValidity = 1000L * 60 * 1; // 15분
+    private final long accessTokenValidity = 1000L * 60 * 15; // 15분
     //리프레시 토큰 유효시간
     private final long refreshTokenValidity = 1000L * 60 * 60 * 24 * 7; // 7일
 

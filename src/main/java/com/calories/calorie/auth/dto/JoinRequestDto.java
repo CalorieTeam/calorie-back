@@ -14,6 +14,8 @@ public class JoinRequestDto {
     private String pw;
     @Schema(description = "사용자 이름", example = "홍길동")
     private String name;
+    @Schema(description = "닉네임", example = "도라에몽")
+    private String nickName; // 닉네임
     @Schema(description = "휴대폰 번호", example = "01012345678")
     private String phoneNumber;
     @Schema(description = "성별 (M 또는 F)", example = "M")

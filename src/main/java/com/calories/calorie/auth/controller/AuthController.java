@@ -27,19 +27,21 @@ public class AuthController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+    //회원가입 API
     @Operation(summary = "회원가입", description = "이메일, 비밀번호, 이름, 성별 등으로 신규 회원가입을 처리합니다.")
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestBody JoinRequestDto request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+    public ResponseEntity<?> signup(@RequestBody JoinRequestDto dto) {
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body("이미 가입된 이메일입니다.");
         }
 
         User user = User.builder()
-                .email(request.getEmail())
-                .pw(passwordEncoder.encode(request.getPw()))
-                .name(request.getName())
-                .phoneNumber(request.getPhoneNumber())
-                .gender(request.getGender())
+                .email(dto.getEmail())
+                .pw(passwordEncoder.encode(dto.getPw()))
+                .name(dto.getName())
+                .phoneNumber(dto.getPhoneNumber())
+                .gender(dto.getGender())
+                .nickName(dto.getNickName())
                 .state(1)
                 .build();
 
